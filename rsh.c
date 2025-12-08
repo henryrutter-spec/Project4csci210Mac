@@ -30,8 +30,11 @@ void sendmsg (char *user, char *target, char *msg) {
 	// TODO:
 	// Send a request to the server to send the message (msg) to the target user (target)
 	// by creating the message structure and writing it to server's FIFO
-
-
+	int dummyfd;
+	char buf[500];
+	dummyfd=open("serverFIFO", O_WRONLY);
+	write(dummyfd, buf, msg);
+	
 
 
 
@@ -50,6 +53,34 @@ void* messageListener(void *arg) {
 	// put an end of line at the end of the message
 
 
+	int dummyfd;
+	//char buf[500];	
+
+	//char msg[200];
+	
+	int status=0;
+
+
+	struct message buf;
+
+        dummyfd=open(uName, O_RDONLY);
+
+	while(1){
+	
+	//serverFIFO[0]
+	status=read(dummyfd, &buf, sizeof(buf));
+
+	//while(){}
+
+	if(status==-1){
+	continue;
+	}
+	else if(status>0){ 
+	printf("Incoming message from %d : %d\n", buf.source, buf.msg);	
+	}
+	
+	
+	}
 
 
 
@@ -85,6 +116,14 @@ int main(int argc, char **argv) {
 
     // TODO:
     // create the message listener thread
+	
+	
+
+	pthread_t tid;
+	int *arr;
+	arr=(int*)malloc(sizeof(int)*200);
+	pthread_create(&tid, NULL, messageListener, (void*)arr);
+
 
 
 
@@ -125,13 +164,54 @@ int main(int argc, char **argv) {
  		// printf("sendmsg: you have to enter a message\n");
 
 
+		
+		
+		
+		//char msg[200];
+		
+
+		char* token = strtok(line2, " ");
+
+
+
+		char* name=strtok(NULL, " ");
+
+		 if(name==NULL){
+                printf("sendmsg: you have to specify target user\n");
+		continue;
+                }
+		
+
+
+		//char buf[200];
+		char* msg=strtok(NULL, " ");
+
+		//int i=0;
+		//while (token!=NULL) {
+		//msg=msg+strtok(NULL, " ");
+		//strcpy(token, " ");
+
+		//strcpy(baseName, pathName+delimiterNum+1);
+		
+		//token(NULL, "");
+		//i+=1;
+		//}
 
 
 
 
+		if (msg==NULL){
+                printf("sendmsg: you have to enter a message\n");
+		continue;
+                }
 
 
 
+		//uName
+
+	//char *user, char *target, char *msg
+		sendmsg(uName, name, msg);
+		
 
 		continue;
 	}

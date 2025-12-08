@@ -34,7 +34,7 @@ int main() {
 
 
 
-
+		req.msg=read(serverFIFO[0], buf, 24);
 
 
 		printf("Received a request from %s to send the message %s to %s.\n",req.source,req.msg,req.target);
@@ -44,8 +44,9 @@ int main() {
 		// close target FIFO after writing the message
 
 
-
-
+		dummyfd=open(target, O_WRONLY);
+		write(dummyfd, buf, req.msg);
+		close(dummyfd);
 
 
 
