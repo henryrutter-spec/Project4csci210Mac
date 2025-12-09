@@ -45,7 +45,7 @@ int main() {
         	else if(status>0){
 
 		printf("Received a request from %s to send the message %s to %s.\n",req.source,req.msg,req.target);
-		}
+		
 		// TODO:
 		// open target FIFO and write the whole message struct to the target FIFO
 		// close target FIFO after writing the message
@@ -53,8 +53,8 @@ int main() {
 
 		dummyfd=open(target, O_WRONLY);
 		write(dummyfd, &req, req.msg);
-		close(dummyfd);
-
+		//close(dummyfd);
+		}
 
 
 	}

@@ -17,7 +17,7 @@ char *allowed[N] = {"cp","touch","mkdir","ls","pwd","cat","grep","chmod","diff",
 struct message {
 	char source[50];
 	char target[50]; 
-	char msg[200];
+	char msg[20:0];
 };
 
 void terminate(int sig) {
@@ -31,9 +31,20 @@ void sendmsg (char *user, char *target, char *msg) {
 	// Send a request to the server to send the message (msg) to the target user (target)
 	// by creating the message structure and writing it to server's FIFO
 	int dummyfd;
-	char buf[500];
+	//char buf[500];
+
+
+	struct message buf;
+	//buf.source=user;
+	//buf.target=target;
+	//buf.msg=msg;
+
+	strcpy(buf.source,user);
+	strcpy(buf.target,target);
+	strcpy(buf.msg,msg);
+
 	dummyfd=open("serverFIFO", O_WRONLY);
-	write(dummyfd, buf, msg);
+	write(dummyfd, &buf, buf.msg);
 	
 
 
