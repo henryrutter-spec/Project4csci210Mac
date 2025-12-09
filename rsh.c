@@ -17,7 +17,7 @@ char *allowed[N] = {"cp","touch","mkdir","ls","pwd","cat","grep","chmod","diff",
 struct message {
 	char source[50];
 	char target[50]; 
-	char msg[20:0];
+	char msg[200];
 };
 
 void terminate(int sig) {
@@ -33,7 +33,7 @@ void sendmsg (char *user, char *target, char *msg) {
 	int dummyfd;
 	//char buf[500];
 
-
+	//buf.source
 	struct message buf;
 	//buf.source=user;
 	//buf.target=target;
