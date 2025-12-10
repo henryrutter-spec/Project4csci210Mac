@@ -77,16 +77,18 @@ void* messageListener(void *arg) {
 	//char msg[200];
 	
 	int status=0;
-
+	int userfd=0;
 
 	struct message buf;
-
-        dummyfd=open(uName, O_RDONLY);
+	//server = open("serverFIFO",O_RDONLY);
+	//dummyfd = open("serverFIFO",O_WRONLY);
+        userfd=open(uName, O_RDONLY);
+	dummyfd = open(uName,O_WRONLY);
 
 	while(1){
 	
 	//serverFIFO[0]
-	status=read(dummyfd, &buf, sizeof(buf));
+	status=read(userfd, &buf, sizeof(buf));
 
 	//while(){}
 
