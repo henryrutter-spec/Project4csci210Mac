@@ -92,7 +92,7 @@ void* messageListener(void *arg) {
 
 	//while(){}
 
-	if(status==-1){
+	if(status<=0){
 	continue;
 	}
 	else if(status>0){ 
