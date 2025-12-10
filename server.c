@@ -31,7 +31,7 @@ int main() {
 	while (1) {
 		// TODO:
 		// read requests from serverFIFO
-		int status=0;
+		ssize_t status=0;
 		
 
 		//serverFIFO[0]
@@ -39,9 +39,10 @@ int main() {
 
 		
 
-		if(status==-1){
+		if(status<=0){
         		continue;
         	}
+		//sizeof(struct message)
         	else if(status>0){
 
 		printf("Received a request from %s to send the message %s to %s.\n",req.source,req.msg,req.target);
@@ -50,10 +51,10 @@ int main() {
 		// open target FIFO and write the whole message struct to the target FIFO
 		// close target FIFO after writing the message
 
-
-		dummyfd=open(target, O_WRONLY);
-		write(dummyfd, &req, req.msg);
-		//close(dummyfd);
+		
+		target=open(req.target, O_WRONLY);
+		write(target, &req, sizeof(req));
+		close(target);
 		}
 
 

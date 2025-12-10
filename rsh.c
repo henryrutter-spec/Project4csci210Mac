@@ -30,6 +30,13 @@ void sendmsg (char *user, char *target, char *msg) {
 	// TODO:
 	// Send a request to the server to send the message (msg) to the target user (target)
 	// by creating the message structure and writing it to server's FIFO
+	printf(user);
+	printf("\n");
+	printf(target);
+	printf("\n");
+	printf(msg);
+	printf("\n");
+	
 	int dummyfd;
 	//char buf[500];
 
@@ -44,9 +51,9 @@ void sendmsg (char *user, char *target, char *msg) {
 	strcpy(buf.msg,msg);
 
 	dummyfd=open("serverFIFO", O_WRONLY);
-	write(dummyfd, &buf, buf.msg);
+	write(dummyfd, &buf, sizeof(buf));
 	
-
+	close(dummyfd);
 
 
 
@@ -181,7 +188,7 @@ int main(int argc, char **argv) {
 		//char msg[200];
 		
 
-		char* token = strtok(line2, " ");
+		//char* token = strtok(line2, " ");
 
 
 
@@ -195,7 +202,7 @@ int main(int argc, char **argv) {
 
 
 		//char buf[200];
-		char* msg=strtok(NULL, " ");
+		char* msg=strtok(NULL, "\0");
 
 		//int i=0;
 		//while (token!=NULL) {
