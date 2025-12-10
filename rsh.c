@@ -30,12 +30,12 @@ void sendmsg (char *user, char *target, char *msg) {
 	// TODO:
 	// Send a request to the server to send the message (msg) to the target user (target)
 	// by creating the message structure and writing it to server's FIFO
-	printf(user);
-	printf("\n");
-	printf(target);
-	printf("\n");
-	printf(msg);
-	printf("\n");
+	//printf(user);
+	//printf("\n");
+	//printf(target);
+	//printf("\n");
+	//printf(msg);
+	//printf("\n");
 	
 	int dummyfd;
 	//char buf[500];
@@ -96,7 +96,7 @@ void* messageListener(void *arg) {
 	continue;
 	}
 	else if(status>0){ 
-	printf("Incoming message from %d : %d\n", buf.source, buf.msg);	
+	printf("Incoming message from %s : %s\n", buf.source, buf.msg);	
 	}
 	
 	
